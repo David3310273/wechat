@@ -1,0 +1,20 @@
+# log files
+
+/log/**
+npm-debug.log.*
+
+
+# configuration files
+
+config.json
+
+
+# node modules
+
+/node_modules/** 
+
+
+# sublime file
+
+*.sublime-project
+*.sublime-workspace
