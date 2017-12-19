@@ -1,0 +1,13 @@
+ {
+    "wechat": "https://api.weixin.qq.com/cgi-bin/token",
+    "menuProfile": "https://api.weixin.qq.com/cgi-bin/menu/get",
+    "menuCreate": " https://api.weixin.qq.com/cgi-bin/menu/create",
+    "menuRemove": "https://api.weixin.qq.com/cgi-bin/menu/delete",
+    "appID": "wxf51593e0125608f0",
+    "appSecret": "6478c4aa7b3e57cad35470e9874ad1be",
+    "turingRobot": "http://www.tuling123.com/openapi/api",
+    "turingApiKey": "2237c9a073be4b3499436c650801a2bd",
+    "logPath": "./log",
+    "appToken": "haha",
+    "grantType": "client_credential"
+}

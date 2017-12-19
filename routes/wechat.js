@@ -31,41 +31,45 @@ router.get('/listMenu', (req, res, next) => {
 });
 
 router.get('/createMenu', (req, res, next) => {
-    // infoLogger.error('just test again');
-    // var AccessToken = accessToken.model;
-    // var record = AccessToken.findOne({}, 'token');
-    // const postBody = {
-    //     "button":[
-    //         {
-    //            "name":"菜单",
-    //            "sub_button":[
-    //                 {    
-    //                    "type":"view",
-    //                    "name":"搜索",
-    //                    "url":"http://www.soso.com/"
-    //                 }
-    //             ]
-    //         }
-    //     ]
-    // };
+    var AccessToken = accessToken.model;
+    var record = AccessToken.findOne({}, 'token');
 
-    // record.then((doc) => {
-    //     var rawBody = '';
-    //     const url = config.menuCreate + '?' + querystring.stringify({
-    //         access_token: doc.token
-    //     });
-    //     const options = {
-    //         url: url,
-    //         method: 'post',
-    //         body: JSON.stringify(postBody)
-    //     }
+    /**
+     * TODO: config the menu through UI.
+     */
 
-    //     request(options, (err, resp) => {
-    //         if (!err && resp.statusCode == 200) {
-    //             res.send(resp.body);
-    //         }
-    //     });
-    // });
+    const postBody = {
+        "button":[
+            {
+               "name":"菜单",
+               "sub_button":[
+                    {    
+                       "type":"view",
+                       "name":"搜索",
+                       "url":"http://www.soso.com/"
+                    }
+                ]
+            }
+        ]
+    };
+
+    record.then((doc) => {
+        var rawBody = '';
+        const url = config.menuCreate + '?' + querystring.stringify({
+            access_token: doc.token
+        });
+        const options = {
+            url: url,
+            method: 'post',
+            body: JSON.stringify(postBody)
+        }
+
+        request(options, (err, resp) => {
+            if (!err && resp.statusCode == 200) {
+                res.send(resp.body);
+            }
+        });
+    });
 });
 
 module.exports = router;

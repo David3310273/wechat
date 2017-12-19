@@ -1,0 +1,17 @@
+{
+    "db": "mongodb://localhost:27017/wechat",
+    "logConfig": {      
+      "appenders": {    
+        "out": {"type": "console"},
+        "error": {"type": "file", "filename": "log/syslog.log"},
+        "info": {"type": "file", "filename": "log/sysinfo.log"},
+        "debug": {"type": "console"}
+      },
+      "categories": {   
+        "default": {"appenders": ["out"], "level": "debug"},
+        "error": {"appenders": ["error"], "level": "error"},
+        "info": {"appenders": ["info"], "level": "info"},
+        "debug": {"appenders": ["debug"], "level": "debug"}
+      }
+    }
+}

@@ -6,9 +6,7 @@ var infoLogger = require('../models/logger').getLogger('info');
 var textMsgUtils = require('../models/textMessageUtils');
 
 router.get('/', (req, res, next) => {
-    // accessToken.fetch()
     infoLogger.info(req.query);
-    debug(accessToken.validate(req));
     res.send(accessToken.validate(req));
 });
 

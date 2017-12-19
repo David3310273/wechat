@@ -11,29 +11,23 @@ var mongoose = require('mongoose');
 var index = require('./routes/index');
 var accessToken = require('./routes/accessToken');
 var wechat = require('./routes/wechat');    
-var config = require('./config.json');     //loading global url config
+var config = require('./config');     //loading global url config
 var infoLogger = require('./models/logger').getLogger('info');
 var getBody = require('raw-body');
 
 var app = express();
 
-app.set('config', config);
-
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
-
-fs.existsSync(path.join(app.get('config').logPath)) || fs.mkdir(path.join(app.get('config').logPath));
+fs.existsSync(path.join(config.logPath)) || fs.mkdir(path.join(config.logPath));
 // config log path.
 
 var accessLogStream = rfs('access.log', {
     interval: '1d', // rotate once a day
-    path: path.join(app.get('config').logPath),
+    path: path.join(config.logPath),
 });
 
 var errorLogStream = rfs('error.log', {
     interval: '2d',
-    path: path.join(app.get('config').logPath)
+    path: path.join(config.logPath)
 });
 
 /*use morgan to log the request in access.log and error.log, see docs here: [https://github.com/expressjs/morgan]*/
@@ -79,15 +73,6 @@ app.on('close', function() {
   mongoose.disconnect();
 })
 
-// uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));  
-
-app.use(bodyParser.json({
-  strict: false
-}));
-
-app.use(bodyParser.raw());
-
 app.use(function(req, res, next) {    //if middleware can't parse the request body, return the raw body instead.
   getBody(req, {}, function(err, body) {
     if (err) {
@@ -101,7 +86,6 @@ app.use(function(req, res, next) {    //if middleware can't parse the request bo
 
 app.use(bodyParser.urlencoded({ extended: false })); 
 app.use(cookieParser());
-// app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/index', index);   //mounting router on specific url
 app.use('/accessToken', accessToken);

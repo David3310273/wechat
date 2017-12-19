@@ -34,7 +34,7 @@ module.exports.replyMsg = (req, res, next) => {
     var msg = getContent(req.body);
     var postBody = {
         key: config.turingApiKey,
-        info: msg.Content.toString();
+        info: msg.Content.toString()
     };
 
     var dataToBeSend = {

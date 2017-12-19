@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "DEBUG=* nodemon ./bin/www"
+    "start": "DEBUG=* nodemon --config nodemon.json ./bin/www"
   },
   "dependencies": {
     "body-parser": "~1.18.2",
