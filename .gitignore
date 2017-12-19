@@ -6,7 +6,7 @@ npm-debug.log.*
 
 # configuration files
 
-config.json
+/config/**
 
 
 # node modules
