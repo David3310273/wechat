@@ -4,17 +4,17 @@ var config = require('./config/components');
 
 config = Object.assign(config, require('./config/params'));
 
-switch (process.env.flag)
+switch (process.env.NODE_ENV)
 {
-    case 'dev': {
-        //dev enviromental param configuration here
+    case 'development': {
+        //dev enviromental param configuration here, consist with the node config.
     }
 
     case 'test': {
         //test enviromental param configuration here
     }
 
-    case 'pro': {
+    case 'production': {
         //pro enviromental param configuration here
     }
 
