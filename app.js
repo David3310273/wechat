@@ -8,9 +8,10 @@ var fs = require('fs');
 var rfs = require('rotating-file-stream');  //rotate log file
 
 var mongoose = require('mongoose');
-var index = require('./routes/index');
-var accessToken = require('./routes/accessToken');
-var wechat = require('./routes/wechat');    
+var index = require('./routes/apis/index');
+var accessToken = require('./routes/apis/accessToken');
+var wechat = require('./routes/apis/wechat');
+var menuManagement = require('./routes/menuManagement');
 var config = require('./config');     //loading global url config
 var infoLogger = require('./models/logger').getLogger('info');
 var getBody = require('raw-body');
@@ -29,6 +30,11 @@ var errorLogStream = rfs('error.log', {
     interval: '2d',
     path: path.join(config.logPath)
 });
+
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
+
+app.use('/static', express.static(path.join(__dirname, 'public')));
 
 /*use morgan to log the request in access.log and error.log, see docs here: [https://github.com/expressjs/morgan]*/
 app.use(logger('combined', {
@@ -87,9 +93,11 @@ app.use(function(req, res, next) {    //if middleware can't parse the request bo
 app.use(bodyParser.urlencoded({ extended: false })); 
 app.use(cookieParser());
 
-app.use('/index', index);   //mounting router on specific url
-app.use('/accessToken', accessToken);
-app.use('/wechat', wechat);
+app.use('/apis/index', index);   //mounting apis on specific url
+app.use('/apis/accessToken', accessToken);
+app.use('/apis/wechat', wechat);
+
+app.use('/menuManagement', menuManagement);   //mounting views on specific url
 
 //final error handler
 app.use(function(err, req, res, next) {

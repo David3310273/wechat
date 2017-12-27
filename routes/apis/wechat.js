@@ -3,14 +3,14 @@ var router = express.Router();
 var https = require('https');   //pay attention to this, http not equals https!
 var debug = require('debug')('wechat');
 var mongoose = require('mongoose');
-var config = require('../config');
-var util = require('../util');
+var config = require('../../config');
+var util = require('../../util');
 var request = require('request');
-var accessToken = require('../models/accessToken');
+var accessToken = require('../../models/accessToken');
 var querystring = require('querystring');
-var msg = require('../models/textMessageUtils');
-var infoLogger = require('../models/logger').getLogger('info');
-var errLogger = require('../models/logger').getLogger('error');
+var msg = require('../../models/textMessageUtils');
+var infoLogger = require('../../models/logger').getLogger('info');
+var errLogger = require('../../models/logger').getLogger('error');
 
 router.get('/listMenu', (req, res, next) => {
     infoLogger.info("")

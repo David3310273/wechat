@@ -5,6 +5,8 @@ var sha1 = require('sha1');
 var config = require('../config');
 var Schema = mongoose.Schema;
 var debug = require('debug')('accessToken');
+var querystring = require('querystring');
+var request = require('request');
 
 var accessTokenSchema = new Schema({
     token: String,
@@ -20,7 +22,13 @@ module.exports.model = AccessToken;
  * get token from api
  */
 
-module.exports.fetch = (url) => {
+module.exports.fetch = () => {
+  var url = config.wechat + "?" + querystring.stringify({
+      grant_type: config.grantType,
+      appid: config.appID,
+      secret: config.appSecret
+  });
+
   request(url, (err, res) => {
     if (!err) {
       try {

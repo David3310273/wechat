@@ -13,15 +13,12 @@ var menu = {
         var AccessToken = accessToken.model;
         var record = AccessToken.findOne({}, 'token');
 
-        record.then((doc) => {
-            var rawBody = '';
+        return record.then((doc) => {
             var url = config.menuProfile + '?' + querystring.stringify({
-                access_token: doc.token
+                access_token: "5_hwWjt2FUBuhRr5zztggK6WYuQa50DsQZe9v2v_byyKMGeAPsN21z3_DiNWy2brSNAqbf-c1HDK36jHMCC51xAVEIt1rHf-DRQuVX_fmM6emQiIaYypxmg492sJB2ac7keIARCCoxM-I8-CBJXPHbAJAPHZ"
             });
 
-            request(url, (err, response) => {
-                res.send(response.body);
-            });
+            return url;
         });
     },
 
