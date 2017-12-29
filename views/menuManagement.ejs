@@ -11,7 +11,14 @@
   <div class="header_title"><a href="/">微信菜单管理系统</a><span class="header_user">欢迎你,Admin</span></div>
 </div>
 <div class="panel">
-  
+    <%for (var i = 0; i < msg.length; i++) { %>
+        <ul><%= msg[i].name %></ul>
+        <%for (var j = 0; j < msg[i].sub_button.length; j++) { %>
+            <li><%= msg[i].sub_button[j].name %></li>
+            <li><%= msg[i].sub_button[j].type %></li>
+            <li><%= msg[i].sub_button[j].url %></li>
+        <% }%>
+    <%}%>
 </div>
 </body>
 </html>

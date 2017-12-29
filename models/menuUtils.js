@@ -15,7 +15,7 @@ var menu = {
 
         return record.then((doc) => {
             var url = config.menuProfile + '?' + querystring.stringify({
-                access_token: "5_hwWjt2FUBuhRr5zztggK6WYuQa50DsQZe9v2v_byyKMGeAPsN21z3_DiNWy2brSNAqbf-c1HDK36jHMCC51xAVEIt1rHf-DRQuVX_fmM6emQiIaYypxmg492sJB2ac7keIARCCoxM-I8-CBJXPHbAJAPHZ"
+                access_token: doc.token
             });
 
             return url;

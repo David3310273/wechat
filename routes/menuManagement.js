@@ -13,14 +13,22 @@ var infoLogger = require('../models/logger').getLogger('info');
 var errLogger = require('../models/logger').getLogger('error');
 
 router.get('/', (req, res, next) => {
+    // accessToken.fetch();
     wechatMenu.list().then((url) => {
         request(url, (err, response) => {
+            var msg = JSON.parse(response.body);
+            
             if (err) {
                 next(err);
             }
 
-            res.render('menuManagement', JSON.parse(response.body));
-            // res.send(response.body);
+            if (util.isset(response.errcode)) {
+                next(response.body);
+            }
+
+            res.render('menuManagement', {
+                msg: msg.menu.button
+            });
         });
     });
 });
