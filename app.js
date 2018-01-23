@@ -19,7 +19,7 @@ var getBody = require('raw-body');
 var app = express();
 
 fs.existsSync(path.join(config.logPath)) || fs.mkdir(path.join(config.logPath));
-// config log path.
+// config node service access log path.
 
 var accessLogStream = rfs('access.log', {
     interval: '1d', // rotate once a day

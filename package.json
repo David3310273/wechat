@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "DEBUG=* nodemon --config nodemon.json ./bin/www"
+    "start": "DEBUG=* nodemon --config nodemon.json ./bin/www",
+    "test": "./node_modules/mocha/bin/mocha"
   },
   "dependencies": {
     "body-parser": "~1.18.2",
@@ -12,6 +13,7 @@
     "ejs": "*",
     "express": "~4.15.5",
     "log4js": "*",
+    "mocha": "^5.0.0",
     "mongoose": "^4.13.8",
     "morgan": "~1.9.0",
     "request": "*",
