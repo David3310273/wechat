@@ -1,30 +1,27 @@
-var https = require('https');   //pay attention to this, http not equals https!
-var debug = require('debug')('wechat');
-var mongoose = require('mongoose');
-var config = require('../config');
-var util = require('../util');
 var request = require('request');
-var accessToken = require('../models/accessToken');
+var redis = require('redis');
+var assert = require('assert');
+var {promisify} = require('util');
+var config = require('../config');
 var querystring = require('querystring');
+var client = redis.createClient();
+var getAsync = promisify(client.get).bind(client);
 
 var menu = {
-    list: (req, res, next) => {
-        var record = '';
-        var AccessToken = accessToken.model;
-        var record = AccessToken.findOne({}, 'token');
 
-        return record.then((doc) => {
-            var url = config.menuProfile + '?' + querystring.stringify({
-                access_token: doc.token
+    list: (req, res, next) => {
+        return getAsync('token').then(function(reply) {
+            return reply.toString();
+        }).then(function(token) {
+            url = config.menuProfile + '?' + querystring.stringify({
+                access_token: token
             });
 
-            return url;
+            return url;             
         });
     },
 
     create: (req, res, next) => {
-        var AccessToken = accessToken.model;
-        var record = AccessToken.findOne({}, 'token');
         const postBody = {      //test code
             "button":[
                 {
@@ -40,22 +37,28 @@ var menu = {
             ]
         };
 
-        record.then((doc) => {
-            var rawBody = '';
-            const url = config.menuCreate + '?' + querystring.stringify({
-                access_token: doc.token
+        getAsync('token').then(function(reply) {
+            return reply.toString();
+        }).then(function(token) {
+            url = config.menuCreate + '?' + querystring.stringify({
+                access_token: token
             });
+
+            return url;
+        }).then(function(url) {
             const options = {
                 url: url,
                 method: 'post',
                 body: JSON.stringify(postBody)
-            }
+            };
 
             request(options, (err, resp) => {
                 if (!err && resp.statusCode == 200) {
                     res.send(resp.body);
                 }
             });
+        }, function(err) {
+            console.log(err);
         });
     }
 }

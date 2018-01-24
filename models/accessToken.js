@@ -33,19 +33,7 @@ module.exports.fetch = () => {
     if (!err) {
       try {
           const accessTokenData = JSON.parse(res.body);
-          var newToken = new AccessToken({
-              token: accessTokenData["access_token"],
-              record_time: Date.now(),
-              expires: accessTokenData["expires_in"]
-          });
-
-          newToken.save(function(err) {
-            if (err) {
-              console.log("save error: " + err);
-            } else {
-              console.log("save succeed!");
-            }
-          });
+          client.set('token', accessTokenData['access_token'], 'EX', 7200);
       } catch (e) {
           console.error('parse error: ' + e);
       }
